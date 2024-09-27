@@ -4,5 +4,75 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js"
     crossorigin="anonymous"></script>
+  <dev-project-root>blaze_face_short_range.tflite
 </head>
+  const vision = await FilesetResolver.forVisionTasks(
+  // path/to/wasm/root
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+);
+const facedetector = await FaceDetector.createFromOptions(
+    vision,
+    {
+      baseOptions: {
+        modelAssetPath: "path/to/model"
+      },
+      runningMode: runningMode
+    });
+  const image = document.getElementById("image") as HTMLImageElement;
+const faceDetectorResult = faceDetector.detect(image);
+  await faceDetector.setOptions({ runningMode: "video" });
+
+let lastVideoTime = -1;
+function renderLoop(): void {
+  const video = document.getElementById("video");
+
+  if (video.currentTime !== lastVideoTime) {
+    const detections = faceDetector.detectForVideo(video);
+    processResults(detections);
+    lastVideoTime = video.currentTime;
+  }
+
+  requestAnimationFrame(() => {
+    renderLoop();
+  });
+}
+  FaceDetectionResult:
+  Detections:
+    Detection #0:
+      BoundingBox:
+        origin_x: 126
+        origin_y: 100
+        width: 463
+        height: 463
+      Categories:
+        Category #0:
+          index: 0
+          score: 0.9729152917861938
+      NormalizedKeypoints:
+        NormalizedKeypoint #0:
+          x: 0.18298381567001343
+          y: 0.2961040139198303
+        NormalizedKeypoint #1:
+          x: 0.3302789330482483
+          y: 0.29289937019348145
+        ... (6 keypoints for each face)
+    Detection #1:
+      BoundingBox:
+        origin_x: 616
+        origin_y: 193
+        width: 430
+        height: 430
+      Categories:
+        Category #0:
+          index: 0
+          score: 0.9251380562782288
+      NormalizedKeypoints:
+        NormalizedKeypoint #0:
+          x: 0.6151331663131714
+          y: 0.3713381886482239
+        NormalizedKeypoint #1:
+          x: 0.7460576295852661
+          y: 0.38825345039367676
+        ... (6 keypoints for each face)
+  
 </html>
