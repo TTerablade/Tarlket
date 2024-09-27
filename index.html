@@ -1,12 +1,5 @@
 <!Doctype html>
-<html>
-  <!-- You can replace JSDeliver with another CDN if you prefer to -->
-<head>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js"
-    crossorigin="anonymous"></script>
-  <dev-project-root>blaze_face_short_range.tflite
-</head>
-  const vision = await FilesetResolver.forVisionTasks(
+const vision = await FilesetResolver.forVisionTasks(
   // path/to/wasm/root
   "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
 );
@@ -74,5 +67,13 @@ function renderLoop(): void {
           x: 0.7460576295852661
           y: 0.38825345039367676
         ... (6 keypoints for each face)
+<html>
+  <!-- You can replace JSDeliver with another CDN if you prefer to -->
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js"
+    crossorigin="anonymous"></script>
+  <dev-project-root>blaze_face_short_range.tflite
+</head>
+  
   
 </html>
